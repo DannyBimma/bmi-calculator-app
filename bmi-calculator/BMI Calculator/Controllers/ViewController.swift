@@ -8,21 +8,23 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
     
     // link value labels
     @IBOutlet weak var heightValueLabel: UILabel!
     @IBOutlet weak var weightValueLabel: UILabel!
     
+    @IBOutlet weak var heightSliderOutlet: UISlider!
+    @IBOutlet weak var weightSliderOutlet: UISlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
+    // link height slider
     @IBAction func heightSlider(_ sender: UISlider) {
-        // log current height value
-        print(sender.value)
-        
         // round height value to 2 decimal places
         let roundedHeight: Float = round(sender.value * 100) / 100.0
         
@@ -33,10 +35,8 @@ class ViewController: UIViewController {
         heightValueLabel.text = "\(String(roundedHeight))m"
     }
     
+    // link weight slider
     @IBAction func weightSlider(_ sender: UISlider) {
-        // log current weight value
-        print(sender.value)
-        
         // convert weight value to float & log it
         print(Int(sender.value))
         
@@ -45,6 +45,17 @@ class ViewController: UIViewController {
         
         // display values in weight value label
         weightValueLabel.text = "\(String(intWeight))kg"
+    }
+    
+    // link calculate btn
+    @IBAction func calcPressed(_ sender: UIButton) {
+        // store weight and height values
+        let height: Float = (heightSliderOutlet.value)
+        let weight: Float = (weightSliderOutlet.value)
+        
+        // calculate and log bmi
+        let bmi = weight / pow(height, 2)
+        print("Your BMI is \(bmi)")
     }
     
 }
