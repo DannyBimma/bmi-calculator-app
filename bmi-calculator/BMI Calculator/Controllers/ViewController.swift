@@ -18,6 +18,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var heightSliderOutlet: UISlider!
     @IBOutlet weak var weightSliderOutlet: UISlider!
     
+    // store bmi value
+    var bmiValue = "0.0"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -55,7 +58,26 @@ class ViewController: UIViewController {
         
         // calculate and log bmi
         let bmi = weight / pow(height, 2)
+        
+        // assign bmiValue to rounded bmi calculation
+        bmiValue = String(round(bmi * 100) / 100.0)
         print("Your BMI is \(bmi)")
+        
+       // go to result view
+        self.performSegue(withIdentifier: "resultSegue", sender: self)
+        
+    }
+    
+    // prepare data for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // check for segue identifier
+        if segue.identifier == "resultSegue" {
+            let destinationView = segue.destination as! ResultViewController
+            
+            // send the bmi value from this view to the result view
+            destinationView.bmiValue = bmiValue
+            
+        }
     }
     
 }
