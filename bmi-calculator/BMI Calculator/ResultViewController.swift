@@ -16,12 +16,16 @@ class ResultViewController: UIViewController {
     
     // create bmi value property
     var bmiValue: String?
+    var advice: String?
+    var colour: UIColor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // display bmi value in lable text
+        // display bmi value, advice, & colour
         bmiLable.text = bmiValue
+        adviceLabel.text = advice
+        view.backgroundColor = colour
 
     }
     
