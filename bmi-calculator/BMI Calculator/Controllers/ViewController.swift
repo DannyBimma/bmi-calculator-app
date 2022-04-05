@@ -18,8 +18,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var heightSliderOutlet: UISlider!
     @IBOutlet weak var weightSliderOutlet: UISlider!
     
+    // store and initialise calculator logic object
+    var calcLogic = CalculatorLogic()
+    
     // store bmi value
-    var bmiValue = "0.0"
+    // var bmiValue = "0.0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,14 +59,16 @@ class ViewController: UIViewController {
         let height: Float = (heightSliderOutlet.value)
         let weight: Float = (weightSliderOutlet.value)
         
+        //
+        calcLogic.calcBMI(height: height, weight: weight)
         // calculate and log bmi
-        let bmi = weight / pow(height, 2)
+        // let bmi = weight / pow(height, 2)
         
         // assign bmiValue to rounded bmi calculation
-        bmiValue = String(round(bmi * 100) / 100.0)
-        print("Your BMI is \(bmi)")
+        // bmiValue = String(round(bmi * 100) / 100.0)
+        // print("Your BMI is \(bmi)")
         
-       // go to result view
+       // segue to result view
         self.performSegue(withIdentifier: "resultSegue", sender: self)
         
     }
@@ -75,8 +80,9 @@ class ViewController: UIViewController {
             let destinationView = segue.destination as! ResultViewController
             
             // send the bmi value from this view to the result view
-            destinationView.bmiValue = bmiValue
-            
+            destinationView.bmiValue = calcLogic.getBMI()
+            destinationView.advice = calcLogic.getAdvice()
+            destinationView.colour = calcLogic.getColour()
         }
     }
     
